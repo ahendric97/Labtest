@@ -23,6 +23,7 @@ namespace LabTest.Models
         [Required(ErrorMessage = "Gender is Required.")]
         public char Gender { get; set; }
         [DisplayName("Date Of Birth")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [Required(ErrorMessage = "Date of Birth is Required.")]
         public DateTime DOB { get; set; }
 
