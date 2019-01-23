@@ -1,0 +1,67 @@
+﻿@model IEnumerable<LabTest.Models.Person>
+
+@{
+    ViewBag.Title = "Person Search";
+}
+
+<br />
+<br />
+<div align="center">
+    @using (Html.BeginForm("Index", "Person", FormMethod.Get))
+    {
+        <text>Search Term:</text> @Html.TextBox("search") <input type="submit" name="submit" value="Search" class="btn btn-primary" / >
+    }
+</div>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Last_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SelectedState)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DOB)
+        </th>
+        <th></th>
+    </tr>
+    
+    @if (Model.Count() == 0) { <tr> <td colspan = "6"> Records not found </td>
+    </tr >
+    } else {
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.First_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Last_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SelectedState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PersonID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PersonID })
+            </td>
+        </tr>
+    }
+    }
+
+</table>
