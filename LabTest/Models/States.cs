@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace LabTest.Models
         public List<State> GetStates()
         {
             List<State> statelist = new List<State>();
-            using (SqlConnection conn = new SqlConnection(@"Server=localhost\SQLEXPRESS;Database=labtest;user id=LabTestUser;password=labtestuser1234;Trusted_Connection=True;"))
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.AppSettings["connstring"]))
             {
                 if (conn.State != ConnectionState.Open)
                 {
@@ -28,12 +29,11 @@ namespace LabTest.Models
                     {
                         while (rst.Read())
                         {
-                            //var x = new SelectListItem { Value = rst["state_id"].ToString(), Text = rst["state_code"].ToString() };
-                            statelist.Add(new State(int.Parse(rst["state_id"].ToString()),rst["state_code"].ToString()));
+                            statelist.Add(new State(int.Parse(rst["state_id"].ToString()), rst["state_code"].ToString()));
                         }
                     }
                 }
-               // statelist.Insert(0, new State(0, "Select State"));
+                // statelist.Insert(0, new State(0, "Select State"));
             }
             return statelist;
         }
